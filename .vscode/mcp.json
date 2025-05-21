@@ -1,0 +1,34 @@
+{
+  "inputs": [
+    {
+      "type": "promptString",
+      "id": "redmine_host",
+      "description": "Redmine Host",
+      "default": "http://host.docker.internal:3000"
+    },
+    {
+      "type": "promptString",
+      "id": "redmine_api_key",
+      "description": "Redmine API Key",
+      "password": true
+    }
+  ],
+  "servers": {
+    "mcp-server-redmine": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e", "REDMINE_HOST",
+        "-e", "REDMINE_API_KEY",
+        "--add-host", "host.docker.internal:host-gateway",
+        "mcp-server-redmine"
+      ],
+      "env": {
+        "REDMINE_HOST": "${input:redmine_host}",
+        "REDMINE_API_KEY": "${input:redmine_api_key}"
+      }
+    }
+  }
+}
